@@ -7,10 +7,10 @@
         <span :class="{ line_through: todo.completed }">{{ todo.text }}</span>
       </label>
       <div class="todo__btns" v-if="!todo.completed">
-        <button>
+        <button class="grey">
           <fa icon="gears" />
         </button>
-        <button>
+        <button class="red" @click="$emit('deleter', todo.id)">
           <fa icon="trash" />
         </button>
       </div>
@@ -41,6 +41,7 @@ export default {
     }
   },
   methods: {
+
   }
 };
 </script>
@@ -85,10 +86,33 @@ export default {
 
 .todo:hover .checkbox,
 .todo:hover .todo__btns {
-  display: block;
+  display: flex;
+  gap: 10px;
 }
 
-.line_trought {
+.line_through {
   text-decoration: line-through;
+}
+
+.todo__btns button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+
+.grey {
+  color: #282846;
+}
+
+.grey:hover {
+ color: #414177;
+}
+.red {
+  color: #F05454;
+}
+
+.red:hover {
+  color: #d34b4b;
 }
 </style>

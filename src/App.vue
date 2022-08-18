@@ -15,6 +15,11 @@ export default {
 		return {
 			dark_theme: false
 		}
+	},
+	methods:{
+		changeDarkThemeState(){
+			this.dark_theme = !this.dark_theme
+		}
 	}
 }
 </script>
@@ -33,6 +38,9 @@ body {
 #app {
 	font-family: Nunito, sans-serif;
 	color: #282846;
+	position: relative;
+	width: 100vw;
+	height: 100vh;
 }
 .pointer {
   cursor: pointer;

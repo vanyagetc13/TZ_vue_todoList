@@ -1,7 +1,8 @@
 <template>
+    <MAT @close="changeModalAddTaskVisible" :mAT="modal_Add_Task" @addTodo="createTask"/>
     <div class="main__wrapper">
         <header class="header">
-            <PrimaryButton>
+            <PrimaryButton @click="changeModalAddTaskVisible">
                 <fa icon="circle-plus" class="add-task__icon" />Новая
                 задача
             </PrimaryButton>
@@ -20,7 +21,7 @@
             <div class="column column-1">
                 <Card>
                     <h3>Активные задачи</h3>
-                    <TaskList :list="getActiveTodos(true)" @changeCompl="changeCompl" />
+                    <TaskList :list="getActiveTodos(true)" @changeCompl="changeCompl" @deleter="removeTask"/>
 
                     <hr />
 
@@ -40,6 +41,7 @@
 import PrimaryButton from "@/components/UI/PrimaryButton";
 import Card from "@/components/UI/Card";
 import TaskList from "@/components/TaskList";
+import Modal_Add_Task from "@/components/Modal_Add_Task.vue"
 export default {
     data() {
         return {
@@ -48,12 +50,14 @@ export default {
                 { id: 2, text: "Задача 2", completed: false },
                 { id: 3, text: "Задача 3", completed: true },
             ],
+            modal_Add_Task: false
         };
     },
     components: {
         PrimaryButton,
         Card,
         TaskList,
+        MAT: Modal_Add_Task
     },
     methods: {
         changeTheme() {
@@ -67,6 +71,17 @@ export default {
         },
         changeCompl(id) {
             this.todoList.find(todo => todo.id === id).completed = !this.todoList.find(todo => todo.id === id).completed
+        },
+        changeModalAddTaskVisible(){
+			this.modal_Add_Task = !this.modal_Add_Task
+		},
+        createTask (todo) {
+            const newTodo = {
+                id: new Date(),
+                conpleted: false,
+                text: todo.text
+            }
+            this.todoList.push(newTodo)
         }
     },
 };
